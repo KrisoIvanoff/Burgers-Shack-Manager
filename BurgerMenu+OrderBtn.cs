@@ -30,11 +30,10 @@ namespace BurgeriVisual
         {
             
         }
-        private DataTable GetMenu()
+        private void GetMenu()
         {
                 DataSet ds = new DataSet();
 
-                DataTable dtBurgs = new DataTable();
                 SqlCommand com = new SqlCommand("SELECT * FROM burgers.burgerTypes", sqlcon);
             sqlcon.Open();
                 using (sqlcon)
@@ -46,7 +45,6 @@ namespace BurgeriVisual
                         bigmenu.DataSource = ds;
                         bigmenu.DataMember = "burgerName";
                         this.bigmenu.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                        return dtBurgs;
                     }
                 }
         }
