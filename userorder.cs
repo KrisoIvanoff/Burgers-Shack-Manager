@@ -13,35 +13,33 @@ namespace BurgeriVisual
 {
     public partial class userorder : Form
     {
-        public userorder()
+        public userorder(int localid)
         {
             InitializeComponent();
+            userid = localid;
         }
         SqlConnection sqlcon = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
-
+        int userid = 0;
         private void userorder_Load(object sender, EventArgs e)
         {
             GetMenu();
-            GetUserQuantity();
+            GetUserOrder();
 
         }
         private void GetMenu()
         {
             DataSet ds = new DataSet();
             sqlcon.Open();
-            using (sqlcon)
-            {
-
-                    SqlDataAdapter dataadapter = new SqlDataAdapter("SELECT * FROM burgers.burgerTypes", sqlcon);
-                    dataadapter.Fill(ds, "burgerName");
-                    ordernewBurgerMenu.DataSource = ds;
-                    ordernewBurgerMenu.DataMember = "burgerName";
-                    this.ordernewBurgerMenu.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            }
+            SqlDataAdapter dataadapter = new SqlDataAdapter("SELECT * FROM burgers.burgerTypes", sqlcon);
+            dataadapter.Fill(ds, "burgerName");
+            ordernewBurgerMenu.DataSource = ds;
+            ordernewBurgerMenu.DataMember = "burgerName";
+            this.ordernewBurgerMenu.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            sqlcon.Close();
         }
         List<decimal> burgQuantity = new List<decimal>();
         DataSet dsguq = new DataSet();
-        private void GetUserQuantity()
+        private void GetUserOrder()
         {
             SqlConnection sconn = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
             sconn.Open();
@@ -49,54 +47,59 @@ namespace BurgeriVisual
             dataadapter.Fill(dsguq, "burgerTypes");
             dataGridView1.DataSource = dsguq;
             dataGridView1.DataMember = "burgerTypes";
-           
-
+            dataGridView1.Columns[3].ReadOnly = true;
+            dataGridView1.Columns[4].ReadOnly = true;
+            dataGridView1.Columns[5].ReadOnly = true;
+            dataGridView1.Columns[6].ReadOnly = true;
             sconn.Close();
         }
 
-        //I NEED HELP
+        //I NEED HELP, PLEASE HELP ME,I'M GOING CRAZY
         private decimal CalculateOrderPrice()
         {
             int rowCount = dsguq.Tables.Count;
+            sqlcon.Open();
             for (int i = 0; i <= rowCount + 1; i++)
             {
                 decimal cellValue = Convert.ToDecimal(dataGridView1.Rows[i].Cells[0].Value);
                 burgQuantity.Add(cellValue);
             }
-            foreach (var item in burgQuantity)
-            {
-                MessageBox.Show(item.ToString());
-            }
-            SqlConnection sqlcon2 = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
-            sqlcon2.Open();
             decimal price = 0;
+            decimal endprice = 0;
             List<decimal> priceList = new List<decimal>();
-            using (sqlcon2)
+            SqlCommand com = new SqlCommand("SELECT price FROM burgers.burgertypes", sqlcon);
+            SqlDataReader reader = com.ExecuteReader();
+            while (reader.Read())
             {
-                SqlCommand com = new SqlCommand("SELECT price FROM burgers.burgertypes",sqlcon2);
-                SqlDataReader reader = com.ExecuteReader();
-                while(reader.Read())
+                priceList.Add(Convert.ToDecimal(reader["price"]));
+            }
+            sqlcon.Close();
+            MessageBox.Show("Cenata e: " + price.ToString() + "lv");
+            sqlcon.Open();
+            SqlCommand insOrder = new SqlCommand();
+            for (int i = 0; i <= rowCount + 1; i++)
+            {
+                if (dataGridView1.Rows[i].Cells[0].Value != null && dataGridView1.Rows[i].Cells[1].Value != null&& dataGridView1.Rows[i].Cells[2].Value != null)
                 {
-                    priceList.Add(Convert.ToDecimal(reader["price"]));
+                    endprice += price;
+                    price = priceList[i] * burgQuantity[i];
+                    insOrder = new SqlCommand("INSERT INTO dbo.orders(burgertype,quantity,commentary,deliveryAddr,isDelivered,userid,price) values ("
+                                      + Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value) + "," + Convert.ToInt32(dataGridView1.Rows[i].Cells[0].Value) + ",\'" + dataGridView1.Rows[i].Cells[1].Value.ToString() + "\',"
+                                      + "\'" + dataGridView1.Rows[i].Cells[2].Value.ToString() + "\'," + "0," + Convert.ToInt32(userid) + ",\'" + price + "\' )", sqlcon);
                 }
+                
             }
-            for (int i = 0; i < burgQuantity.Count; i++)
-            {
-                price += priceList[i] * burgQuantity[i];
-
-            }
-            MessageBox.Show("Cenata e: " + price.ToString()+ "lv");
+            MessageBox.Show(endprice.ToString());
+            insOrder.ExecuteNonQuery();
+            MessageBox.Show("Order successful");
+            dataGridView1 = null;
+            sqlcon.Close();
             return price;
         }
         private void orderbtn_Click(object sender, EventArgs e)
         {
 
             CalculateOrderPrice();
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }

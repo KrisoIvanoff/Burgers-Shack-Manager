@@ -14,21 +14,23 @@ using MySql.Data.MySqlClient;
 
 namespace BurgeriVisual
 {
-    public partial class Form1 : Form
+    public partial class LoginPanel : Form
     {
-        public Form1()
+        public LoginPanel()
         {
             InitializeComponent();
 
-    }
+        }
         SqlConnection sqlcon = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
-        public static int userId =0;
+        public static int userId = 0;
         private void loginbtn_Click(object sender, EventArgs e)
         {
             SqlConnection sqlcon = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
 
             if (sqlcon.State == ConnectionState.Closed)
-            { sqlcon.Open(); }
+            {
+                sqlcon.Open();
+            }
             using (sqlcon)
             {
                 if (userName.Text != string.Empty && userPass.Text != string.Empty)

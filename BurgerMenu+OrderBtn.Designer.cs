@@ -40,12 +40,10 @@
             // bigmenu
             // 
             this.bigmenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.bigmenu.Location = new System.Drawing.Point(3, 25);
+            this.bigmenu.Location = new System.Drawing.Point(-8, 22);
             this.bigmenu.Name = "bigmenu";
             this.bigmenu.Size = new System.Drawing.Size(796, 167);
             this.bigmenu.TabIndex = 0;
-            this.bigmenu.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.bigmenu_CellClick);
-            this.bigmenu.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.BigMenu_CellContentClick);
             // 
             // orderbtn
             // 

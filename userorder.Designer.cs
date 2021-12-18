@@ -32,11 +32,10 @@
             this.orderbtn = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Comemntary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.del_Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.ordernewBurgerMenu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // ordernewBurgerMenu
@@ -66,12 +65,13 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Quantity});
+            this.Quantity,
+            this.Comemntary,
+            this.del_Address});
             this.dataGridView1.Location = new System.Drawing.Point(12, 288);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(776, 150);
             this.dataGridView1.TabIndex = 3;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Quantity
             // 
@@ -80,29 +80,21 @@
             this.Quantity.Name = "Quantity";
             this.Quantity.Width = 50;
             // 
-            // numericUpDown1
+            // Comemntary
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(524, 260);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 4;
+            this.Comemntary.HeaderText = "Comemntary";
+            this.Comemntary.Name = "Comemntary";
             // 
-            // button1
+            // del_Address
             // 
-            this.button1.Location = new System.Drawing.Point(259, 288);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.del_Address.HeaderText = "Delivery Addresss";
+            this.del_Address.Name = "del_Address";
             // 
             // userorder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.orderbtn);
             this.Controls.Add(this.ordernewBurgerMenu);
@@ -111,7 +103,6 @@
             this.Load += new System.EventHandler(this.userorder_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ordernewBurgerMenu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -120,8 +111,8 @@
         private System.Windows.Forms.DataGridView ordernewBurgerMenu;
         private System.Windows.Forms.Button orderbtn;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Comemntary;
+        private System.Windows.Forms.DataGridViewTextBoxColumn del_Address;
     }
 }

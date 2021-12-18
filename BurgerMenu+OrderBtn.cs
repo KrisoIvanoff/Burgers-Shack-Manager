@@ -25,55 +25,34 @@ namespace BurgeriVisual
             GetMenu();
             GetPastOrders();
         }
-
-        private void BigMenu_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
         private void GetMenu()
         {
-                DataSet ds = new DataSet();
-
-                SqlCommand com = new SqlCommand("SELECT * FROM burgers.burgerTypes", sqlcon);
+            DataSet ds = new DataSet();
             sqlcon.Open();
-                using (sqlcon)
-                {
-                    using (com)
-                    {
-                        SqlDataAdapter dataadapter = new SqlDataAdapter("SELECT * FROM burgers.burgerTypes", sqlcon);
-                        dataadapter.Fill(ds, "burgerName");
-                        bigmenu.DataSource = ds;
-                        bigmenu.DataMember = "burgerName";
-                        this.bigmenu.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    }
-                }
+                    SqlDataAdapter dataadapter = new SqlDataAdapter("SELECT * FROM burgers.burgerTypes", sqlcon);
+                    dataadapter.Fill(ds, "burgerName");
+                    bigmenu.DataSource = ds;
+                    bigmenu.DataMember = "burgerName";
+                    this.bigmenu.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            sqlcon.Close();
         }
 
         private void GetPastOrders()
         {
-            SqlConnection pastordconn= new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
+            SqlConnection pastordconn = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
             pastordconn.Open();
             DataSet ds = new DataSet();
-            //                SqlDataAdapter burgName = new SqlDataAdapter("SELECT burgers.burgertypes.burgerName, orders.orderid, orders.commentary, orders.deliveryAddr, orders.quantity, burgers.userprofiles.username FROM burgers.burgertypes INNER JOIN orders ON burgers.burgertypes.id = orders.burgertype INNER JOIN burgers.userprofiles ON orders.userid = burgers.userprofiles.id WHERE orders.userid = " + localUserId, pastordconn);
-            SqlDataAdapter burgName = new SqlDataAdapter("SELECT orderid,burgername,quantity,commentary,deliveryaddr,isdelivered from burgers.burgertypes,dbo.orders WHERE burgertypes.id = dbo.orders.burgertype AND dbo.orders.userid = "+localUserId, pastordconn);
-                    burgName.Fill(ds, "orders");
-                    pastOrders.DataSource = ds;
-                    pastOrders.DataMember = "orders";
-                    pastordconn.Close();
-        }
-        private void bigmenu_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-
-        private void hiddenUserIdlbl_Click(object sender, EventArgs e)
-        {
-
+            SqlDataAdapter burgName = new SqlDataAdapter("SELECT orderid,burgername,quantity,commentary,deliveryAddr,isDelivered from burgers.burgertypes,dbo.orders WHERE burgertypes.id = dbo.orders.burgertype AND dbo.orders.userid = " + localUserId, pastordconn);
+            burgName.Fill(ds, "orders");
+            pastOrders.DataSource = ds;
+            pastOrders.DataMember = "orders";
+            pastordconn.Close();
         }
 
         private void orderbtn_Click(object sender, EventArgs e)
         {
             this.Hide();
-            userorder a = new userorder();
+            userorder a = new userorder(localUserId);
             a.Show();
         }
     }
