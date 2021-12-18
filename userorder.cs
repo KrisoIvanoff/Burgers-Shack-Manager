@@ -39,27 +39,30 @@ namespace BurgeriVisual
                     this.ordernewBurgerMenu.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
         }
-        List<int> burgQuantity = new List<int>();
+        List<decimal> burgQuantity = new List<decimal>();
         private void GetUserQuantity()
         {
             SqlConnection sconn = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
             sconn.Open();
             DataSet ds = new DataSet();
             SqlDataAdapter dataadapter = new SqlDataAdapter("SELECT * FROM burgers.burgerTypes", sconn);
-            sconn.Close();
             dataadapter.Fill(ds, "burgerTypes");
-            int rowcount = Convert.ToInt32(dataGridView1.Rows.Count);
-            this.dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            int indexRow = dataGridView1.RowCount;
-            if (indexRow >= 0)
+            dataGridView1.DataSource = ds;
+            dataGridView1.DataMember = "burgerTypes";
+            int index = 0;
+            foreach (DataGridViewRow row in dataGridView1.Rows)
             {
-                for (int i = 1; i <= rowcount; i++)
-                {
-                    burgQuantity.Add(Convert.ToInt16(dataGridView1.SelectedCells[i].Value));
 
-                }
+                decimal cellValue = Convert.ToDecimal(dataGridView1.Rows[index].Cells[0].Value);
+                burgQuantity.Add(cellValue);
+                index++;
             }
+
+
+            sconn.Close();
         }
+
+        //I NEED HELP
         private decimal CalculateOrderPrice()
         {
             SqlConnection sqlcon2 = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
@@ -77,7 +80,8 @@ namespace BurgeriVisual
             }
             for (int i = 0; i < burgQuantity.Count; i++)
             {
-                price += priceList[i] * Convert.ToDecimal(burgQuantity[i]);
+                price += priceList[i] * burgQuantity[i];
+
             }
             MessageBox.Show("Cenata e: " + price.ToString());
             return price;
@@ -86,5 +90,7 @@ namespace BurgeriVisual
         {
             CalculateOrderPrice();
         }
+
+
     }
 }

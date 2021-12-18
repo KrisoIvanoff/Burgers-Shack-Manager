@@ -21,7 +21,7 @@ namespace BurgeriVisual
             InitializeComponent();
 
     }
-    SqlConnection sqlcon = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;User Id= Kriso;Password= aladin; ");
+        SqlConnection sqlcon = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
         public static int userId =0;
         private void loginbtn_Click(object sender, EventArgs e)
         {
@@ -60,14 +60,13 @@ namespace BurgeriVisual
         {
             string uname = userName.Text.ToString();
             string upass = userPass.Text.ToString();
-            if(sqlcon.State == ConnectionState.Closed)
-            { sqlcon.Open(); }
+            sqlcon.Open();
             using (sqlcon)
             {
 
                 if (userPass.Text != string.Empty && userName.Text != string.Empty && sqlcon.State == ConnectionState.Open)
                 {
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM burgers.userprofiles WHERE username='" + uname + "' AND password='" + upass + "';", sqlcon);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM burgers.userprofiles WHERE username='" + @uname + "' AND password='" + @upass + "';", sqlcon);
                     SqlDataReader dr = cmd.ExecuteReader();
                     if (dr.Read())
                     {
