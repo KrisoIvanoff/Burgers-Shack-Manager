@@ -38,6 +38,8 @@ namespace BurgeriVisual
                     dataadapter.Fill(ds, "burgerName");
                     ordernewBurgerMenu.DataSource = ds;
                     ordernewBurgerMenu.DataMember = "burgerName";
+                    this.ordernewBurgerMenu.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
                     return dtBurgs;
                 }
             }

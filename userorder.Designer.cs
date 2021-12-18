@@ -37,7 +37,7 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(342, 28);
+            this.numericUpDown1.Location = new System.Drawing.Point(12, 196);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown1.TabIndex = 0;
@@ -47,12 +47,12 @@
             this.ordernewBurgerMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ordernewBurgerMenu.Location = new System.Drawing.Point(12, 12);
             this.ordernewBurgerMenu.Name = "ordernewBurgerMenu";
-            this.ordernewBurgerMenu.Size = new System.Drawing.Size(324, 178);
+            this.ordernewBurgerMenu.Size = new System.Drawing.Size(480, 178);
             this.ordernewBurgerMenu.TabIndex = 1;
             // 
             // orderbtn
             // 
-            this.orderbtn.Location = new System.Drawing.Point(366, 106);
+            this.orderbtn.Location = new System.Drawing.Point(138, 193);
             this.orderbtn.Name = "orderbtn";
             this.orderbtn.Size = new System.Drawing.Size(75, 23);
             this.orderbtn.TabIndex = 2;

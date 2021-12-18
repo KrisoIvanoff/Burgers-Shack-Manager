@@ -51,21 +51,18 @@ namespace BurgeriVisual
                 }
         }
 
-        private DataTable GetPastOrders()
+        private void GetPastOrders()
         {
             SqlConnection pastordconn= new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
             pastordconn.Open();
             DataSet ds = new DataSet();
-            DataTable dtOrds = new DataTable();
-            using (pastordconn)
-            {
-                SqlDataAdapter burgName = new SqlDataAdapter("SELECT orders.*,burgers.burgertypes.burgername FROM dbo.orders INNER JOIN burgers.burgertypes ON burgers.burgertypes.id = dbo.orders.burgertype INNER JOIN burgers.userprofiles ON burgers.userprofiles.id =" + 1, pastordconn) ;
+                SqlDataAdapter burgName = new SqlDataAdapter("SELECT orders.*,burgers.burgertypes.burgername FROM dbo.orders " +
+                    "INNER JOIN burgers.burgertypes ON burgers.burgertypes.id = dbo.orders.burgertype INNER JOIN burgers.userprofiles " +
+                    "ON burgers.userprofiles.id = dbo.orders.userid INNER JOIN burgers.burgertypes as bt ON bt.id = dbo.orders.burgertype", pastordconn) ;
                     burgName.Fill(ds, "orders");
                     pastOrders.DataSource = ds;
                     pastOrders.DataMember = "orders";
                     pastordconn.Close();
-                    return dtOrds;
-            }
         }
         private void bigmenu_CellClick(object sender, DataGridViewCellEventArgs e)
         {
