@@ -55,6 +55,7 @@
             this.orderbtn.TabIndex = 1;
             this.orderbtn.Text = "Order burger";
             this.orderbtn.UseVisualStyleBackColor = true;
+            this.orderbtn.Click += new System.EventHandler(this.orderbtn_Click);
             // 
             // menulbl
             // 

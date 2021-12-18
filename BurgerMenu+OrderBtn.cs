@@ -59,10 +59,8 @@ namespace BurgeriVisual
             DataTable dtOrds = new DataTable();
             using (pastordconn)
             {
-                    SqlDataAdapter orderAdapter = new SqlDataAdapter("SELECT orderid FROM dbo.orders;", pastordconn);
-                    SqlDataAdapter burgName = new SqlDataAdapter("SELECT burgertypes.burgername FROM burgers.burgertypes, dbo.orders where dbo.orders.burgertype = burgertypes.id;", pastordconn);
+                SqlDataAdapter burgName = new SqlDataAdapter("SELECT orders.*,burgers.burgertypes.burgername FROM dbo.orders INNER JOIN burgers.burgertypes ON burgers.burgertypes.id = dbo.orders.burgertype INNER JOIN burgers.userprofiles ON burgers.userprofiles.id =" + 1, pastordconn) ;
                     burgName.Fill(ds, "orders");
-                    orderAdapter.Fill(ds, "orders");
                     pastOrders.DataSource = ds;
                     pastOrders.DataMember = "orders";
                     pastordconn.Close();
@@ -76,6 +74,13 @@ namespace BurgeriVisual
         private void hiddenUserIdlbl_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void orderbtn_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            userorder a = new userorder();
+            a.Show();
         }
     }
 }
