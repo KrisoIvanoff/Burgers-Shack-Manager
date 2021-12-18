@@ -40,24 +40,16 @@ namespace BurgeriVisual
             }
         }
         List<decimal> burgQuantity = new List<decimal>();
+        DataSet dsguq = new DataSet();
         private void GetUserQuantity()
         {
             SqlConnection sconn = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
             sconn.Open();
-            DataSet ds = new DataSet();
             SqlDataAdapter dataadapter = new SqlDataAdapter("SELECT * FROM burgers.burgerTypes", sconn);
-            dataadapter.Fill(ds, "burgerTypes");
-            dataGridView1.DataSource = ds;
+            dataadapter.Fill(dsguq, "burgerTypes");
+            dataGridView1.DataSource = dsguq;
             dataGridView1.DataMember = "burgerTypes";
-            int index = 0;
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-            {
-
-                decimal cellValue = Convert.ToDecimal(dataGridView1.Rows[index].Cells[0].Value);
-                burgQuantity.Add(cellValue);
-                index++;
-            }
-
+           
 
             sconn.Close();
         }
@@ -65,6 +57,16 @@ namespace BurgeriVisual
         //I NEED HELP
         private decimal CalculateOrderPrice()
         {
+            int rowCount = dsguq.Tables.Count;
+            for (int i = 0; i <= rowCount + 1; i++)
+            {
+                decimal cellValue = Convert.ToDecimal(dataGridView1.Rows[i].Cells[0].Value);
+                burgQuantity.Add(cellValue);
+            }
+            foreach (var item in burgQuantity)
+            {
+                MessageBox.Show(item.ToString());
+            }
             SqlConnection sqlcon2 = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
             sqlcon2.Open();
             decimal price = 0;
@@ -83,11 +85,12 @@ namespace BurgeriVisual
                 price += priceList[i] * burgQuantity[i];
 
             }
-            MessageBox.Show("Cenata e: " + price.ToString());
+            MessageBox.Show("Cenata e: " + price.ToString()+ "lv");
             return price;
         }
         private void orderbtn_Click(object sender, EventArgs e)
         {
+
             CalculateOrderPrice();
         }
 
