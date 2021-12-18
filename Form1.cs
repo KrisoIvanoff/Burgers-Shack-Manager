@@ -38,11 +38,21 @@ namespace BurgeriVisual
                     SqlDataReader dr = cmd.ExecuteReader();
                     if (dr.Read())
                     {
-                        userId = Convert.ToInt32(dr["id"]);
-                        dr.Close();
-                        BurgerMenu_OrderBtn obj1 = new BurgerMenu_OrderBtn(userId);
-                        obj1.Show();
-                        this.Hide();
+                        int adminCheck = Convert.ToInt16(dr["isAdmin"]);
+                        if (adminCheck == 1)
+                        {
+                            adminForm af = new adminForm();
+                            this.Hide();
+                            af.Show();
+                        }
+                        else
+                        {
+                            userId = Convert.ToInt32(dr["id"]);
+                            dr.Close();
+                            BurgerMenu_OrderBtn obj1 = new BurgerMenu_OrderBtn(userId);
+                            obj1.Show();
+                            this.Hide();
+                        }
                     }
                     else
                     {
