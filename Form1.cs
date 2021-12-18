@@ -89,8 +89,7 @@ namespace BurgeriVisual
                     {
                         dr.Close();
 
-                        string qry1 = "INSERT INTO burgers.userprofiles(userprofiles.username,userprofiles.password) VALUES (\'" + uname + "\',\'" + upass + "\');";
-                        MessageBox.Show(qry1);
+                        string qry1 = "INSERT INTO burgers.userprofiles(userprofiles.username,userprofiles.password,userprofiles.isAdmin) VALUES (\'" + uname + "\',\'" + upass + "\',0);";
                         cmd = new SqlCommand(qry1, sqlcon);
                         cmd.ExecuteNonQuery();
                         MessageBox.Show("Account created. Please login now.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);

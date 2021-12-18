@@ -54,7 +54,9 @@ namespace BurgeriVisual
             SqlConnection pastordconn= new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
             pastordconn.Open();
             DataSet ds = new DataSet();
-                SqlDataAdapter burgName = new SqlDataAdapter("SELECT burgers.burgertypes.burgerName, orders.orderid, orders.commentary, orders.deliveryAddr, orders.quantity, burgers.userprofiles.username FROM burgers.burgertypes INNER JOIN orders ON burgers.burgertypes.id = orders.burgertype INNER JOIN burgers.userprofiles ON orders.userid = burgers.userprofiles.id WHERE orders.userid = " + localUserId, pastordconn);
+            //                SqlDataAdapter burgName = new SqlDataAdapter("SELECT burgers.burgertypes.burgerName, orders.orderid, orders.commentary, orders.deliveryAddr, orders.quantity, burgers.userprofiles.username FROM burgers.burgertypes INNER JOIN orders ON burgers.burgertypes.id = orders.burgertype INNER JOIN burgers.userprofiles ON orders.userid = burgers.userprofiles.id WHERE orders.userid = " + localUserId, pastordconn);
+            SqlDataAdapter burgName = new SqlDataAdapter("SELECT burgers.burgertypes.burgerName, orders.orderid, orders.commentary, orders.deliveryAddr, orders.quantity, userprofiles.username FROM burgers.burgertypes,burgers.userprofiles,dbo.orders WHERE orders.userid = " + localUserId, pastordconn);
+            MessageBox.Show(localUserId.ToString());
                     burgName.Fill(ds, "orders");
                     pastOrders.DataSource = ds;
                     pastOrders.DataMember = "orders";

@@ -29,30 +29,34 @@
         private void InitializeComponent()
         {
             this.visualizeAllOrders = new System.Windows.Forms.DataGridView();
-            this.orderDone = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.updatebtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.visualizeAllOrders)).BeginInit();
             this.SuspendLayout();
             // 
             // visualizeAllOrders
             // 
             this.visualizeAllOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.visualizeAllOrders.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.orderDone});
             this.visualizeAllOrders.Location = new System.Drawing.Point(12, 12);
             this.visualizeAllOrders.Name = "visualizeAllOrders";
-            this.visualizeAllOrders.Size = new System.Drawing.Size(776, 426);
+            this.visualizeAllOrders.Size = new System.Drawing.Size(776, 402);
             this.visualizeAllOrders.TabIndex = 0;
             // 
-            // orderDone
+            // updatebtn
             // 
-            this.orderDone.HeaderText = "Order status";
-            this.orderDone.Name = "orderDone";
+            this.updatebtn.Location = new System.Drawing.Point(653, 421);
+            this.updatebtn.Name = "updatebtn";
+            this.updatebtn.Size = new System.Drawing.Size(75, 23);
+            this.updatebtn.TabIndex = 1;
+            this.updatebtn.Text = "update";
+            this.updatebtn.UseVisualStyleBackColor = true;
+            this.updatebtn.Click += new System.EventHandler(this.updatebtn_Click);
             // 
             // adminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.updatebtn);
             this.Controls.Add(this.visualizeAllOrders);
             this.Name = "adminForm";
             this.Text = "adminForm";
@@ -65,6 +69,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView visualizeAllOrders;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn orderDone;
+        private System.Windows.Forms.Button updatebtn;
     }
 }
