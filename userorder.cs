@@ -74,24 +74,24 @@ namespace BurgeriVisual
                 priceList.Add(Convert.ToDecimal(reader["price"]));
             }
             sqlcon.Close();
-            MessageBox.Show("Cenata e: " + price.ToString() + "lv");
             sqlcon.Open();
             SqlCommand insOrder = new SqlCommand();
             for (int i = 0; i <= rowCount + 1; i++)
             {
                 if (dataGridView1.Rows[i].Cells[0].Value != null && dataGridView1.Rows[i].Cells[1].Value != null&& dataGridView1.Rows[i].Cells[2].Value != null)
                 {
-                    endprice += price;
                     price = priceList[i] * burgQuantity[i];
+                    endprice += price;
+
                     insOrder = new SqlCommand("INSERT INTO dbo.orders(burgertype,quantity,commentary,deliveryAddr,isDelivered,userid,price) values ("
                                       + Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value) + "," + Convert.ToInt32(dataGridView1.Rows[i].Cells[0].Value) + ",\'" + dataGridView1.Rows[i].Cells[1].Value.ToString() + "\',"
                                       + "\'" + dataGridView1.Rows[i].Cells[2].Value.ToString() + "\'," + "0," + Convert.ToInt32(userid) + ",\'" + price + "\' )", sqlcon);
+                    insOrder.ExecuteNonQuery();
                 }
-                
+
             }
-            MessageBox.Show(endprice.ToString());
-            insOrder.ExecuteNonQuery();
-            MessageBox.Show("Order successful");
+            MessageBox.Show("Obshta cena: "+endprice.ToString()+"lv");
+            MessageBox.Show("Order successful.Thank you for being our customer!");
             dataGridView1 = null;
             sqlcon.Close();
             return price;
