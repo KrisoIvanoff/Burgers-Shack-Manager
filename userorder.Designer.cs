@@ -30,12 +30,12 @@
         {
             this.ordernewBurgerMenu = new System.Windows.Forms.DataGridView();
             this.orderbtn = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.sendOrder = new System.Windows.Forms.DataGridView();
             this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Comemntary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.del_Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.ordernewBurgerMenu)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sendOrder)).BeginInit();
             this.SuspendLayout();
             // 
             // ordernewBurgerMenu
@@ -51,27 +51,27 @@
             // 
             // orderbtn
             // 
-            this.orderbtn.Location = new System.Drawing.Point(138, 193);
+            this.orderbtn.Location = new System.Drawing.Point(12, 259);
             this.orderbtn.Name = "orderbtn";
-            this.orderbtn.Size = new System.Drawing.Size(75, 23);
+            this.orderbtn.Size = new System.Drawing.Size(776, 23);
             this.orderbtn.TabIndex = 2;
             this.orderbtn.Text = "order";
             this.orderbtn.UseVisualStyleBackColor = true;
             this.orderbtn.Click += new System.EventHandler(this.orderbtn_Click);
             // 
-            // dataGridView1
+            // sendOrder
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.sendOrder.AllowUserToAddRows = false;
+            this.sendOrder.AllowUserToDeleteRows = false;
+            this.sendOrder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.sendOrder.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Quantity,
             this.Comemntary,
             this.del_Address});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 288);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(776, 150);
-            this.dataGridView1.TabIndex = 3;
+            this.sendOrder.Location = new System.Drawing.Point(12, 288);
+            this.sendOrder.Name = "sendOrder";
+            this.sendOrder.Size = new System.Drawing.Size(776, 150);
+            this.sendOrder.TabIndex = 3;
             // 
             // Quantity
             // 
@@ -95,14 +95,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.sendOrder);
             this.Controls.Add(this.orderbtn);
             this.Controls.Add(this.ordernewBurgerMenu);
             this.Name = "userorder";
             this.Text = "userorder";
             this.Load += new System.EventHandler(this.userorder_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ordernewBurgerMenu)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sendOrder)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -110,7 +110,7 @@
         #endregion
         private System.Windows.Forms.DataGridView ordernewBurgerMenu;
         private System.Windows.Forms.Button orderbtn;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView sendOrder;
         private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn Comemntary;
         private System.Windows.Forms.DataGridViewTextBoxColumn del_Address;

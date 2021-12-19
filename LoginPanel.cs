@@ -23,16 +23,18 @@ namespace BurgeriVisual
         }
         SqlConnection sqlcon = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
         public static int userId = 0;
+        string ordereruserName = "";
         private void loginbtn_Click(object sender, EventArgs e)
         {
             SqlConnection sqlcon = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
-
             if (sqlcon.State == ConnectionState.Closed)
             {
                 sqlcon.Open();
             }
             using (sqlcon)
             {
+
+
                 if (userName.Text != string.Empty && userPass.Text != string.Empty)
                 {
 
@@ -41,6 +43,7 @@ namespace BurgeriVisual
                     if (dr.Read())
                     {
                         int adminCheck = Convert.ToInt16(dr["isAdmin"]);
+
                         if (adminCheck == 1)
                         {
                             adminForm af = new adminForm();
@@ -49,9 +52,10 @@ namespace BurgeriVisual
                         }
                         else
                         {
+                            ordereruserName = userName.Text;
                             userId = Convert.ToInt32(dr["id"]);
                             dr.Close();
-                            BurgerMenu_OrderBtn obj1 = new BurgerMenu_OrderBtn(userId);
+                            BurgerMenu_OrderBtn obj1 = new BurgerMenu_OrderBtn(userId, userName.Text);
                             obj1.Show();
                             this.Hide();
                         }
@@ -72,11 +76,26 @@ namespace BurgeriVisual
         {
             string uname = userName.Text.ToString();
             string upass = userPass.Text.ToString();
+            ordereruserName = uname;
+            bool usernameIsTaken = false;
+            SqlConnection conn2 = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
+
+            SqlCommand checkUsernameAvailability = new SqlCommand("SELECT * from burgers.userprofiles where username = '"+ uname + "';", conn2);
+            conn2.Open();
+            using(conn2)
+            {
+                SqlDataReader availabilityChecker = checkUsernameAvailability.ExecuteReader();
+                if (availabilityChecker.Read()) 
+                 usernameIsTaken = true;
+            }
             sqlcon.Open();
             using (sqlcon)
             {
-
-                if (userPass.Text != string.Empty && userName.Text != string.Empty && sqlcon.State == ConnectionState.Open)
+                if (usernameIsTaken == true)
+                {
+                    MessageBox.Show("Error! Username taken.");
+                }
+                else
                 {
                     SqlCommand cmd = new SqlCommand("SELECT * FROM burgers.userprofiles WHERE username='" + @uname + "' AND password='" + @upass + "';", sqlcon);
                     SqlDataReader dr = cmd.ExecuteReader();
@@ -86,7 +105,7 @@ namespace BurgeriVisual
                         MessageBox.Show("Tva mi e poznato", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     }
-                    else if (userPass.Text == string.Empty || userName.Text == string.Empty) { }
+                    else if (userPass.Text == string.Empty || userName.Text == string.Empty) { MessageBox.Show("Gospodin narkoman pls populni vs"); }
                     else if (userPass.Text != string.Empty && userName.Text != string.Empty)
                     {
                         dr.Close();
@@ -99,7 +118,7 @@ namespace BurgeriVisual
                 }
             }
         }
-
+        //Tva tr se izpolzva nqkude-             SqlCommand checkShopStatus = new SqlCommand("SELECT isOpen from dbo.shopstatus");
         private void Form1_Load(object sender, EventArgs e)
         {
 

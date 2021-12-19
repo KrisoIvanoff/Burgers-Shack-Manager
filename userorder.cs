@@ -13,13 +13,15 @@ namespace BurgeriVisual
 {
     public partial class userorder : Form
     {
-        public userorder(int localid)
+        public userorder(int localid,string username)
         {
             InitializeComponent();
             userid = localid;
+            localusername = username;
         }
         SqlConnection sqlcon = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
         int userid = 0;
+        string localusername = "";
         private void userorder_Load(object sender, EventArgs e)
         {
             GetMenu();
@@ -45,12 +47,12 @@ namespace BurgeriVisual
             sconn.Open();
             SqlDataAdapter dataadapter = new SqlDataAdapter("SELECT * FROM burgers.burgerTypes", sconn);
             dataadapter.Fill(dsguq, "burgerTypes");
-            dataGridView1.DataSource = dsguq;
-            dataGridView1.DataMember = "burgerTypes";
-            dataGridView1.Columns[3].ReadOnly = true;
-            dataGridView1.Columns[4].ReadOnly = true;
-            dataGridView1.Columns[5].ReadOnly = true;
-            dataGridView1.Columns[6].ReadOnly = true;
+            sendOrder.DataSource = dsguq;
+            sendOrder.DataMember = "burgerTypes";
+            sendOrder.Columns[3].ReadOnly = true;
+            sendOrder.Columns[4].ReadOnly = true;
+            sendOrder.Columns[5].ReadOnly = true;
+            sendOrder.Columns[6].ReadOnly = true;
             sconn.Close();
         }
 
@@ -61,7 +63,7 @@ namespace BurgeriVisual
             sqlcon.Open();
             for (int i = 0; i <= rowCount + 1; i++)
             {
-                decimal cellValue = Convert.ToDecimal(dataGridView1.Rows[i].Cells[0].Value);
+                decimal cellValue = Convert.ToDecimal(sendOrder.Rows[i].Cells[0].Value);
                 burgQuantity.Add(cellValue);
             }
             decimal price = 0;
@@ -78,21 +80,21 @@ namespace BurgeriVisual
             SqlCommand insOrder = new SqlCommand();
             for (int i = 0; i <= rowCount + 1; i++)
             {
-                if (dataGridView1.Rows[i].Cells[0].Value != null && dataGridView1.Rows[i].Cells[1].Value != null&& dataGridView1.Rows[i].Cells[2].Value != null)
+                if (sendOrder.Rows[i].Cells[0].Value != null && sendOrder.Rows[i].Cells[1].Value != null&& sendOrder.Rows[i].Cells[2].Value != null)
                 {
                     price = priceList[i] * burgQuantity[i];
                     endprice += price;
 
-                    insOrder = new SqlCommand("INSERT INTO dbo.orders(burgertype,quantity,commentary,deliveryAddr,isDelivered,userid,price) values ("
-                                      + Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value) + "," + Convert.ToInt32(dataGridView1.Rows[i].Cells[0].Value) + ",\'" + dataGridView1.Rows[i].Cells[1].Value.ToString() + "\',"
-                                      + "\'" + dataGridView1.Rows[i].Cells[2].Value.ToString() + "\'," + "0," + Convert.ToInt32(userid) + ",\'" + price + "\' )", sqlcon);
+                    insOrder = new SqlCommand("INSERT INTO dbo.orders(burgertype,quantity,commentary,deliveryAddr,isDelivered,userid,price,ordererUsername) values ("
+                                      + Convert.ToInt32(sendOrder.Rows[i].Cells[3].Value) + "," + Convert.ToInt32(sendOrder.Rows[i].Cells[0].Value) + ",N\'" + sendOrder.Rows[i].Cells[1].Value.ToString() + "\',"
+                                      + "N\'" + sendOrder.Rows[i].Cells[2].Value.ToString() + "\'," + "0," + Convert.ToInt32(userid) + "," + price +",\'"  + localusername +  "\' )", sqlcon);
                     insOrder.ExecuteNonQuery();
                 }
 
             }
             MessageBox.Show("Obshta cena: "+endprice.ToString()+"lv");
             MessageBox.Show("Order successful.Thank you for being our customer!");
-            dataGridView1 = null;
+            sendOrder = null;
             sqlcon.Close();
             return price;
         }
@@ -100,6 +102,7 @@ namespace BurgeriVisual
         {
 
             CalculateOrderPrice();
+
         }
     }
 }

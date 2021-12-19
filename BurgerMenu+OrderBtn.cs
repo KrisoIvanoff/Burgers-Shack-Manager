@@ -14,11 +14,13 @@ namespace BurgeriVisual
     public partial class BurgerMenu_OrderBtn : Form
     {
         public int localUserId = 0;
-        public BurgerMenu_OrderBtn(int userid)
+        public BurgerMenu_OrderBtn(int userid,string username)
         {
             InitializeComponent();
             localUserId = userid;
+            uname = username;
         }
+        string uname = "";
         SqlConnection sqlcon = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
         private void BurgerMenu_OrderBtn_Load(object sender, EventArgs e)
         {
@@ -42,7 +44,7 @@ namespace BurgeriVisual
             SqlConnection pastordconn = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
             pastordconn.Open();
             DataSet ds = new DataSet();
-            SqlDataAdapter burgName = new SqlDataAdapter("SELECT orderid,burgername,quantity,commentary,deliveryAddr,isDelivered from burgers.burgertypes,dbo.orders WHERE burgertypes.id = dbo.orders.burgertype AND dbo.orders.userid = " + localUserId, pastordconn);
+            SqlDataAdapter burgName = new SqlDataAdapter("SELECT orderid,burgertypes.burgername,quantity,commentary,deliveryAddr,isDelivered from burgers.burgertypes,dbo.orders WHERE burgertypes.id = dbo.orders.burgertype AND dbo.orders.userid = " + localUserId, pastordconn);
             burgName.Fill(ds, "orders");
             pastOrders.DataSource = ds;
             pastOrders.DataMember = "orders";
@@ -51,9 +53,19 @@ namespace BurgeriVisual
 
         private void orderbtn_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            userorder a = new userorder(localUserId);
-            a.Show();
+            SqlCommand checkShopStatus = new SqlCommand("SELECT isOpen from dbo.shopstatus", sqlcon);
+            sqlcon.Open(); byte isOpenVar = Convert.ToByte(checkShopStatus.ExecuteScalar()); sqlcon.Close();
+            if (isOpenVar == 1)
+            {
+                this.Hide();
+                userorder a = new userorder(localUserId, uname);
+                a.Show();
+            }
+            else if (isOpenVar == 0)
+            {
+                MessageBox.Show("This shop is currently closed!At the moment,you cannot buy anything!");
+            }
+
         }
     }
 }
