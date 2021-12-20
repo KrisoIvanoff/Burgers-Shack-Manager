@@ -34,6 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.loginbtn = new System.Windows.Forms.Button();
             this.rebtn = new System.Windows.Forms.Button();
+            this.statuslbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // userName
@@ -88,20 +89,31 @@
             this.rebtn.UseVisualStyleBackColor = true;
             this.rebtn.Click += new System.EventHandler(this.rebtn_Click);
             // 
-            // Form1
+            // statuslbl
+            // 
+            this.statuslbl.AutoSize = true;
+            this.statuslbl.Location = new System.Drawing.Point(9, 9);
+            this.statuslbl.Name = "statuslbl";
+            this.statuslbl.Size = new System.Drawing.Size(35, 13);
+            this.statuslbl.TabIndex = 8;
+            this.statuslbl.Text = "label3";
+            this.statuslbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LoginPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(249, 175);
+            this.Controls.Add(this.statuslbl);
             this.Controls.Add(this.rebtn);
             this.Controls.Add(this.loginbtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.userPass);
             this.Controls.Add(this.userName);
-            this.Name = "Form1";
+            this.Name = "LoginPanel";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.LoginPanel_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -115,6 +127,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button loginbtn;
         private System.Windows.Forms.Button rebtn;
+        private System.Windows.Forms.Label statuslbl;
     }
 }
 

@@ -72,6 +72,22 @@ namespace BurgeriVisual
                 }
             }
         }
+        private void ShopStatus()
+        {
+
+            SqlCommand checkShopStatus = new SqlCommand("SELECT isOpen from dbo.shopstatus", sqlcon);
+            sqlcon.Open(); byte isOpenVar = Convert.ToByte(checkShopStatus.ExecuteScalar()); sqlcon.Close();
+            if (isOpenVar == 1)
+            {
+                statuslbl.ForeColor = Color.Green;
+                statuslbl.Text = "Shop is currently opened";
+            }
+            else
+            {
+                statuslbl.ForeColor = Color.Red;
+                statuslbl.Text = "Shop is currently closed. Limited actions";
+            }
+        }
         private void rebtn_Click(object sender, EventArgs e)
         {
             string uname = userName.Text.ToString();
@@ -118,10 +134,10 @@ namespace BurgeriVisual
                 }
             }
         }
-        //Tva tr se izpolzva nqkude-             SqlCommand checkShopStatus = new SqlCommand("SELECT isOpen from dbo.shopstatus");
-        private void Form1_Load(object sender, EventArgs e)
-        {
 
+        private void LoginPanel_Load(object sender, EventArgs e)
+        {
+            ShopStatus();
         }
     }
 }
