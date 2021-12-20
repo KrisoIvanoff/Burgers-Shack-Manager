@@ -41,7 +41,7 @@
             this.visualizeAllOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.visualizeAllOrders.Location = new System.Drawing.Point(12, 12);
             this.visualizeAllOrders.Name = "visualizeAllOrders";
-            this.visualizeAllOrders.Size = new System.Drawing.Size(776, 402);
+            this.visualizeAllOrders.Size = new System.Drawing.Size(1106, 402);
             this.visualizeAllOrders.TabIndex = 0;
             // 
             // updatebtn
@@ -72,7 +72,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1130, 450);
             this.Controls.Add(this.openCloseShop);
             this.Controls.Add(this.updatebtn);
             this.Controls.Add(this.visualizeAllOrders);

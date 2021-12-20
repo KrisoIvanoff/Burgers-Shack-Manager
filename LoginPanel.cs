@@ -80,12 +80,12 @@ namespace BurgeriVisual
             if (isOpenVar == 1)
             {
                 statuslbl.ForeColor = Color.Green;
-                statuslbl.Text = "Shop is currently opened";
+                statuslbl.Text = "Shop is currently open.";
             }
             else
             {
                 statuslbl.ForeColor = Color.Red;
-                statuslbl.Text = "Shop is currently closed. Limited actions";
+                statuslbl.Text = "Shop is currently closed. No new orders.";
             }
         }
         private void rebtn_Click(object sender, EventArgs e)

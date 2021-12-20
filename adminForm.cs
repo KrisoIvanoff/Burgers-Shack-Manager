@@ -32,14 +32,12 @@ namespace BurgeriVisual
             burgName.Fill(ds, "allOrders");
             visualizeAllOrders.DataSource = ds;
             visualizeAllOrders.DataMember = "allOrders";
+            this.visualizeAllOrders.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             rowCol = visualizeAllOrders.Rows.Count;
             pastordconn.Close();
             CheckIfShopIsOpen();
         }
-        private void ordersUpdater()
-        {
-            burgName.Update(ds, "allOrders");
-        }
+
         private void updatebtn_Click(object sender, EventArgs e)
         {
                  SqlCommandBuilder cmdbdl = new SqlCommandBuilder(burgName);
@@ -64,7 +62,7 @@ namespace BurgeriVisual
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            //ne znam dali dolu ima pravopisni greshki,toq kod e pisan v ponedelnik (19.12.21g) v 1:30 sutrinta i 
+            //ne znam dali teksta ima greshki,toq kod e pisan v ponedelnik (19.12.21g) v 1:30 sutrinta i 
             //nadali shte go gledam sled tova (ako raboti)
             if (isOpen ==true)
             {
