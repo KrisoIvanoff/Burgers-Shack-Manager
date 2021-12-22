@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.bigmenu = new System.Windows.Forms.DataGridView();
             this.orderbtn = new System.Windows.Forms.Button();
             this.menulbl = new System.Windows.Forms.Label();
             this.pastOrders = new System.Windows.Forms.DataGridView();
             this.pastordslbl = new System.Windows.Forms.Label();
+            this.refreshOrderBtn = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.bigmenu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pastOrders)).BeginInit();
             this.SuspendLayout();
@@ -81,6 +83,10 @@
             this.pastordslbl.TabIndex = 4;
             this.pastordslbl.Text = "Past orders:";
             // 
+            // refreshOrderBtn
+            // 
+            this.refreshOrderBtn.Enabled = true;
+            // 
             // BurgerMenu_OrderBtn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -108,5 +114,6 @@
         private System.Windows.Forms.Label menulbl;
         private System.Windows.Forms.DataGridView pastOrders;
         private System.Windows.Forms.Label pastordslbl;
+        private System.Windows.Forms.Timer refreshOrderBtn;
     }
 }

@@ -36,12 +36,13 @@ namespace BurgeriVisual
             rowCol = visualizeAllOrders.Rows.Count;
             pastordconn.Close();
             CheckIfShopIsOpen();
+            RefreshGrid();
         }
 
         private void updatebtn_Click(object sender, EventArgs e)
         {
-                 SqlCommandBuilder cmdbdl = new SqlCommandBuilder(burgName);
-                burgName.Update(ds, "allOrders");
+            SqlCommandBuilder cmdbdl = new SqlCommandBuilder(burgName);
+            burgName.Update(ds, "allOrders");
             MessageBox.Show("Data updated");
         }
         bool isOpen = false;
@@ -51,26 +52,26 @@ namespace BurgeriVisual
             pastordconn.Open();
 
             //1-opened,2-closed
-                byte isOpenVar = Convert.ToByte(checkShopStatus.ExecuteScalar());
-                switch (isOpenVar)
-                {
-                    case 1: isOpen = true; openCloseShop.Text = "Close shop"; break;
-                    case 0: isOpen = false; openCloseShop.Text = "Open shop";break;
-                    default: break;
-                }
-                pastordconn.Close();
+            byte isOpenVar = Convert.ToByte(checkShopStatus.ExecuteScalar());
+            switch (isOpenVar)
+            {
+                case 1: isOpen = true; openCloseShop.Text = "Close shop"; break;
+                case 0: isOpen = false; openCloseShop.Text = "Open shop"; break;
+                default: break;
+            }
+            pastordconn.Close();
         }
         private void button1_Click(object sender, EventArgs e)
         {
             //ne znam dali teksta ima greshki,toq kod e pisan v ponedelnik (19.12.21g) v 1:30 sutrinta i 
             //nadali shte go gledam sled tova (ako raboti)
-            if (isOpen ==true)
+            if (isOpen == true)
             {
                 isOpen = false;
                 openCloseShop.Text = "Open shop";
                 MessageBox.Show("Shop closed. Buyers won't be able to log in or place new orders!");
-                SqlCommand closeShop = new SqlCommand("UPDATE dbo.ShopStatus SET isOpen = 0",pastordconn);
-                pastordconn.Open();closeShop.ExecuteNonQuery();pastordconn.Close();
+                SqlCommand closeShop = new SqlCommand("UPDATE dbo.ShopStatus SET isOpen = 0", pastordconn);
+                pastordconn.Open(); closeShop.ExecuteNonQuery(); pastordconn.Close();
             }
             else
             {
@@ -81,6 +82,24 @@ namespace BurgeriVisual
                 pastordconn.Open(); openShop.ExecuteNonQuery(); pastordconn.Close();
 
             }
+        }
+        private void RefreshGrid()
+        {
+            var refresh = new System.Windows.Forms.Timer { Interval = 1000 };
+            refresh.Tick += (sender, args) => UpdateAllOrders(sender, args);
+
+
+        }
+        private void UpdateAllOrders(object sender, EventArgs e)
+        {
+            pastordconn.Open();
+            string select = "SELECT  orders.orderid,orders.ordererUsername,orders.isDelivered, orders.burgertype, orders.quantity,orders.commentary,orders.deliveryAddr,orders.price FROM dbo.orders";
+            SqlDataAdapter da = new SqlDataAdapter(select, pastordconn);
+            DataSet ds = new DataSet();
+            da.Fill(ds, "allOrders");
+            visualizeAllOrders.DataSource = ds;
+            visualizeAllOrders.DataMember = "allOrders";
+            pastordconn.Close();
         }
     }
 }

@@ -94,7 +94,6 @@ namespace BurgeriVisual
             }
             MessageBox.Show("Obshta cena: "+endprice.ToString()+"lv");
             MessageBox.Show("Order successful.Thank you for being our customer!");
-            sendOrder = null;
             sqlcon.Close();
             return price;
         }

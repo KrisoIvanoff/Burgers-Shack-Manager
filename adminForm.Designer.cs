@@ -28,10 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.visualizeAllOrders = new System.Windows.Forms.DataGridView();
             this.updatebtn = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.openCloseShop = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.visualizeAllOrders)).BeginInit();
             this.SuspendLayout();
@@ -53,11 +51,6 @@
             this.updatebtn.Text = "update";
             this.updatebtn.UseVisualStyleBackColor = true;
             this.updatebtn.Click += new System.EventHandler(this.updatebtn_Click);
-            // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1000;
             // 
             // openCloseShop
             // 
@@ -88,7 +81,6 @@
 
         private System.Windows.Forms.DataGridView visualizeAllOrders;
         private System.Windows.Forms.Button updatebtn;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button openCloseShop;
     }
 }

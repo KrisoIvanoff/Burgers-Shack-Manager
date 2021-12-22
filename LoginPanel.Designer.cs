@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.userName = new System.Windows.Forms.TextBox();
             this.userPass = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -35,6 +36,7 @@
             this.loginbtn = new System.Windows.Forms.Button();
             this.rebtn = new System.Windows.Forms.Button();
             this.statuslbl = new System.Windows.Forms.Label();
+            this.refreshStatus = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // userName
@@ -99,6 +101,11 @@
             this.statuslbl.Text = "label3";
             this.statuslbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // refreshStatus
+            // 
+            this.refreshStatus.Enabled = true;
+            this.refreshStatus.Interval = 1000;
+            // 
             // LoginPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -128,6 +135,7 @@
         private System.Windows.Forms.Button loginbtn;
         private System.Windows.Forms.Button rebtn;
         private System.Windows.Forms.Label statuslbl;
+        private System.Windows.Forms.Timer refreshStatus;
     }
 }
 

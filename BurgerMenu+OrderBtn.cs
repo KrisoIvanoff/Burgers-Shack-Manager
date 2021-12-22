@@ -14,7 +14,7 @@ namespace BurgeriVisual
     public partial class BurgerMenu_OrderBtn : Form
     {
         public int localUserId = 0;
-        public BurgerMenu_OrderBtn(int userid,string username)
+        public BurgerMenu_OrderBtn(int userid, string username)
         {
             InitializeComponent();
             localUserId = userid;
@@ -26,16 +26,17 @@ namespace BurgeriVisual
         {
             GetMenu();
             GetPastOrders();
+            UpdateStatus();
         }
         private void GetMenu()
         {
             DataSet ds = new DataSet();
             sqlcon.Open();
-                    SqlDataAdapter dataadapter = new SqlDataAdapter("SELECT * FROM burgers.burgerTypes", sqlcon);
-                    dataadapter.Fill(ds, "burgerName");
-                    bigmenu.DataSource = ds;
-                    bigmenu.DataMember = "burgerName";
-                    this.bigmenu.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            SqlDataAdapter dataadapter = new SqlDataAdapter("SELECT * FROM burgers.burgerTypes", sqlcon);
+            dataadapter.Fill(ds, "burgerName");
+            bigmenu.DataSource = ds;
+            bigmenu.DataMember = "burgerName";
+            this.bigmenu.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             sqlcon.Close();
         }
 
@@ -50,11 +51,10 @@ namespace BurgeriVisual
             pastOrders.DataMember = "orders";
             pastordconn.Close();
         }
-
+        byte isOpenVar = 0;
         private void orderbtn_Click(object sender, EventArgs e)
         {
-            SqlCommand checkShopStatus = new SqlCommand("SELECT isOpen from dbo.shopstatus", sqlcon);
-            sqlcon.Open(); byte isOpenVar = Convert.ToByte(checkShopStatus.ExecuteScalar()); sqlcon.Close();
+
             if (isOpenVar == 1)
             {
                 this.Hide();
@@ -65,7 +65,19 @@ namespace BurgeriVisual
             {
                 MessageBox.Show("This shop is currently closed!At the moment,you cannot buy anything!");
             }
-
+        }
+        private void UpdateStatus()
+        {
+            var refresh = new System.Windows.Forms.Timer { Interval = 1000 };
+            refresh.Tick += (sender, args) => timer_Tick(sender, args);
+            refreshOrderBtn.Interval = 1000;
+            refreshOrderBtn.Tick += new EventHandler(timer_Tick);
+            refreshOrderBtn.Start();
+        }
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            SqlCommand checkShopStatus = new SqlCommand("SELECT isOpen from dbo.shopstatus", sqlcon);
+            sqlcon.Open(); isOpenVar = Convert.ToByte(checkShopStatus.ExecuteScalar()); sqlcon.Close();
         }
     }
 }
