@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BurgeriVisual
@@ -23,8 +16,8 @@ namespace BurgeriVisual
 
         SqlConnection pastordconn = new SqlConnection("server=DESKTOP-JKT9IB6;database=burgers;Integrated Security=true;");
 
-        int rowCol = 0;
         //da se dobavi username na poruchkata, a ne ID
+        int rowCol = 0;
         private void adminForm_Load(object sender, EventArgs e)
         {
             pastordconn.Open();
@@ -85,21 +78,26 @@ namespace BurgeriVisual
         }
         private void RefreshGrid()
         {
-            var refresh = new System.Windows.Forms.Timer { Interval = 1000 };
-            refresh.Tick += (sender, args) => UpdateAllOrders(sender, args);
-
+            refreshOrders.Interval = 10000;
+            refreshOrders.Tick += new EventHandler(UpdateAllOrders);
+            refreshOrders.Start();
 
         }
         private void UpdateAllOrders(object sender, EventArgs e)
         {
             pastordconn.Open();
-            string select = "SELECT  orders.orderid,orders.ordererUsername,orders.isDelivered, orders.burgertype, orders.quantity,orders.commentary,orders.deliveryAddr,orders.price FROM dbo.orders";
+            string select = "SELECT orders.orderid,orders.ordererUsername,orders.isDelivered, orders.burgertype, orders.quantity,orders.commentary,orders.deliveryAddr,orders.price FROM dbo.orders";
             SqlDataAdapter da = new SqlDataAdapter(select, pastordconn);
             DataSet ds = new DataSet();
             da.Fill(ds, "allOrders");
             visualizeAllOrders.DataSource = ds;
             visualizeAllOrders.DataMember = "allOrders";
             pastordconn.Close();
+        }
+
+        private void visualizeAllOrders_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

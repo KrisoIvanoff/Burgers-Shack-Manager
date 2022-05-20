@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.visualizeAllOrders = new System.Windows.Forms.DataGridView();
             this.updatebtn = new System.Windows.Forms.Button();
             this.openCloseShop = new System.Windows.Forms.Button();
+            this.refreshOrders = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.visualizeAllOrders)).BeginInit();
             this.SuspendLayout();
             // 
@@ -41,6 +43,7 @@
             this.visualizeAllOrders.Name = "visualizeAllOrders";
             this.visualizeAllOrders.Size = new System.Drawing.Size(1106, 402);
             this.visualizeAllOrders.TabIndex = 0;
+            this.visualizeAllOrders.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.visualizeAllOrders_CellContentClick);
             // 
             // updatebtn
             // 
@@ -60,6 +63,11 @@
             this.openCloseShop.TabIndex = 2;
             this.openCloseShop.UseVisualStyleBackColor = true;
             this.openCloseShop.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // refreshOrders
+            // 
+            this.refreshOrders.Enabled = true;
+            this.refreshOrders.Interval = 5000;
             // 
             // adminForm
             // 
@@ -82,5 +90,6 @@
         private System.Windows.Forms.DataGridView visualizeAllOrders;
         private System.Windows.Forms.Button updatebtn;
         private System.Windows.Forms.Button openCloseShop;
+        private System.Windows.Forms.Timer refreshOrders;
     }
 }
